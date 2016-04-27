@@ -103,7 +103,3 @@ router.post('/addstudent', function(req, res){
 });
 router.delete
 
-module.exports = router;
-App name
-Subscription azure pass
-Resource Group oronsa
