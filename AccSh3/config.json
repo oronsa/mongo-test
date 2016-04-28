@@ -1,9 +1,0 @@
-{
-  "mongoDBUrl" :"mongodb://oron570:o5709572r@ds021299.mlab.com:21299/mongo_test",
-  "collections": {
-    "users": "users",
-    "renovations": "renovations",
-    "teams": "teams",
-    "chats": "chats"
-  }
-}
