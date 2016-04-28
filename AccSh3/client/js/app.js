@@ -8,7 +8,7 @@
     app.directive('choose', function() {
         return {
             restrict: 'E',
-            templateUrl: "/sampsite/client/views/choose.html",
+            templateUrl: "../views/choose.html",
             controller: function () {
                 this.tab=1;
                 this.isSet = function (checkTab) {
