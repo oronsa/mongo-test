@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
-
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET home page. */
 // Defines the root route. router.get receives a path and a function
@@ -12,10 +13,12 @@ var mongodb = require('mongodb');
 // render says to use the views/index.jade file for the layout
 // and to set the value for title to 'Express'
 
+
 router.get('/', function(req, res)
 {
-    res.sendFile('index.html', {root: 'client/'});
+    res.sendFile('index.html', {root: 'client'});
 });
+
 router.get('/thelist', function(req, res){
 
     // Get a Mongo client to work with the Mongo server
@@ -57,17 +60,18 @@ router.get('/thelist', function(req, res){
 });
 
 // Route to the page we can add students from using newstudent.jade
-router.get('/newstudent.html', function(req, res){
-    res.render('newstudent', {title: 'Add New Student' });
+router.get('/newstudent', function(req, res){
+    res.render('newstudent', {title: 'Add New Student'});
 });
 
-router.post('/addstudent', function(req, res){
+
+router.post('/addstudent', urlencodedParser,function(req, res){
 
     // Get a Mongo client to work with the Mongo server
     var MongoClient = mongodb.MongoClient;
 
     // Define where the MongoDB server is
-    var url = 'mongodb://oron570:o5709572r@ds021299.mlab.com:21299/mongo_test';
+    var url ='mongodb://oron570:o5709572r@ds021299.mlab.com:21299/mongo_test';
 
     // Connect to the server
     MongoClient.connect(url, function(err, db){
@@ -78,12 +82,10 @@ router.post('/addstudent', function(req, res){
 
             // Get the documents collection
             var collection = db.collection('students');
-
             // Get the student data passed from the form
-            var student1 = {student: req.body.student, street: req.body.street,
+            var student1 = {student:req.body.student, street: req.body.street,
                 city: req.body.city, state: req.body.state, sex: req.body.sex,
                 gpa: req.body.gpa};
-
             // Insert the student data into the database
             collection.insert([student1], function (err, result){
                 if (err) {
@@ -103,3 +105,4 @@ router.post('/addstudent', function(req, res){
 });
 router.delete
 
+module.exports = router;

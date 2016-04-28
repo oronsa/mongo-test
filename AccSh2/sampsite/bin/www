@@ -5,20 +5,24 @@
  */
 
 var app = require('../server/app');
-var debug = require('debug')('sampsite:server');
+var debug = require('debug')('bin/www');
 var http = require('http');
+var config = require('../../config.json');
+
+var MONGODB_URL='mongodb://oron570:o5709572r@ds021299.mlab.com:21299/mongo_test';
+
 
 /**
  * Get port from environment and store in Express.
  */
+var DB_URL =MONGODB_URL || config.mongoDBUrl;
+var port = 21299;
 
-var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 /**
