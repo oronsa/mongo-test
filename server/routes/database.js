@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
 var mongoUtils = require('../mongoUtils');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
@@ -20,10 +19,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true });
 router.get('/thelist', function(req, res){
 
     // Get a Mongo client to work with the Mongo server
-    var MongoClient = mongodb.MongoClient;
 
     // Connect to the server
-    MongoClient.connect(url, function (err, db) {
+    mongoUtils.connect(url, function (err, db) {
         if (err) {
             debug("Error connecting to Mongo database: ", err);
             return;
@@ -63,12 +61,11 @@ router.get('/newstudent', function(req, res){
 router.post('/addstudent', urlencodedParser,function(req, res){
 
     // Get a Mongo client to work with the Mongo server
-    var MongoClient = mongodb.MongoClient;
 
     // Define where the MongoDB server is
 
     // Connect to the server
-    MongoClient.connect(url, function(err, db){
+    mongoUtils.connect(url, function(err, db){
         if (err) {
             console.log('Unable to connect to the Server:', err);
         } else {
