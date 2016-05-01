@@ -1,7 +1,6 @@
 {
   "name": "AccSh3",
   "version": "1.0.0",
-  "private": true,
     "main": "bin/www",
   "scripts": {
     "start": "node /bin/www"
