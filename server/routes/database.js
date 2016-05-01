@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 /* GET home page. */
 // Defines the root route. router.get receives a path and a function
@@ -14,10 +14,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 // and to set the value for title to 'Express'
 
 
-router.get('/', function(req, res)
-{
-    res.sendFile('index.html', {root: 'client'});
-});
+
 
 router.get('/thelist', function(req, res){
 
