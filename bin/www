@@ -21,7 +21,6 @@ var port = process.env.PORT || 8080;
  * Create HTTP server.
  */
 var server = require('http').createServer(app);
-app.io.attach(server);
 
 /**
  * Listen on provided port, on all network interfaces.
