@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
 var mongoUtils = require('../mongoUtils');
-var urlencodedParser = bodyParser.urlencoded({ extended: true });
+var debug = require('debug')('routes/database');
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET home page. */
 // Defines the root route. router.get receives a path and a function
@@ -14,20 +17,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true });
 // and to set the value for title to 'Express'
 
 
-
-
-router.get('/thelist', function(req, res){
-
-    // Get a Mongo client to work with the Mongo server
-
-    // Connect to the server
-    mongoUtils.connect(url, function (err, db) {
-        if (err) {
-            debug("Error connecting to Mongo database: ", err);
-            return;
-        } else {
-            // We are connected
-            console.log('Connection established to', url);
+router.get('/thelist', function(req, res,db){
 
             // Get the documents collection
             var collection = db.collection('students');
@@ -48,8 +38,6 @@ router.get('/thelist', function(req, res){
                 //Close connection
                 db.close();
             });
-        }
-    });
 });
 
 // Route to the page we can add students from using newstudent.jade
@@ -58,20 +46,9 @@ router.get('/newstudent', function(req, res){
 });
 
 
-router.post('/addstudent', urlencodedParser,function(req, res){
+router.post('/addstudent', urlencodedParser,function(req, res,db){
 
-    // Get a Mongo client to work with the Mongo server
-
-    // Define where the MongoDB server is
-
-    // Connect to the server
-    mongoUtils.connect(url, function(err, db){
-        if (err) {
-            console.log('Unable to connect to the Server:', err);
-        } else {
-            console.log('Connected to Server');
-
-            // Get the documents collection
+        // Get the documents collection
             var collection = db.collection('students');
             // Get the student data passed from the form
             var student1 = {student:req.body.student, street: req.body.street,
@@ -90,9 +67,6 @@ router.post('/addstudent', urlencodedParser,function(req, res){
                 // Close the database
                 db.close();
             });
-        }
-    });
-
 });
 router.delete
 
