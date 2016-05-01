@@ -11,7 +11,7 @@ var app = express();
 
 // view engine setup
 // view engine setup
-app.set('views', path.join(__dirname, '../client/views'));
+app.set('views', path.join(__dirname, '/../client/views'));
 app.set('view engine', 'jade');
 
 app.use('/', routes);
@@ -21,9 +21,9 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '/../client')));
 app.use(express.static('../'));
-app.use('/vendor', express.static(__dirname + '../node_modules/')); //Static Route for node_modules
+app.use('/vendor', express.static(__dirname + '/../node_modules/')); //Static Route for node_modules
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
