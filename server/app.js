@@ -55,6 +55,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.io = require('./socketio');
 
 module.exports = app;

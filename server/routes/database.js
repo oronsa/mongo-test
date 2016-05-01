@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
+var mongoUtils = require('../mongoUtils');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 /* GET home page. */
@@ -20,9 +21,6 @@ router.get('/thelist', function(req, res){
 
     // Get a Mongo client to work with the Mongo server
     var MongoClient = mongodb.MongoClient;
-
-    // Define where the MongoDB server is
-    var url ='mongodb://oron570:o5709572r@ds021299.mlab.com:21299/mongo_test';
 
     // Connect to the server
     MongoClient.connect(url, function (err, db) {
@@ -68,7 +66,6 @@ router.post('/addstudent', urlencodedParser,function(req, res){
     var MongoClient = mongodb.MongoClient;
 
     // Define where the MongoDB server is
-    var url ='mongodb://oron570:o5709572r@ds021299.mlab.com:21299/mongo_test';
 
     // Connect to the server
     MongoClient.connect(url, function(err, db){

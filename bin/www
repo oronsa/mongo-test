@@ -7,6 +7,7 @@
 var app = require('../server/app');
 var config = require('../config.json');
 var debug = require('debug')('bin/www');
+var mongoUtil = require('../server/mongoUtils');
 
 
 /**
@@ -16,12 +17,12 @@ var debug = require('debug')('bin/www');
 var DB_URL = process.env.MONGODB_URL || config.mongoDBUrl;
 var port = process.env.PORT || 8080;
 
+mongoUtil.connect(DB_URL);
 
 /**
  * Create HTTP server.
  */
 var server = require('http').createServer(app);
-app.io.attach(server);
 
 /**
  * Listen on provided port, on all network interfaces.
