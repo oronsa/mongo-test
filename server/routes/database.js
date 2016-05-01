@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
 var mongoUtils = require('../mongoUtils');
 var debug = require('debug')('routes/database');
@@ -20,10 +19,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 router.get('/thelist', function(req, res,db){
 
             // Get the documents collection
-            var collection = db.collection('students');
-
-            // Find all students
-            collection.find({}).toArray(function (err, result) {
+            mongoUtils.query('students',{},(function (err, result) {
                 if (err) {
                     res.send(err);
                 } else if (result.length) {
@@ -36,8 +32,8 @@ router.get('/thelist', function(req, res,db){
                     res.send('No documents found');
                 }
                 //Close connection
-                db.close();
-            });
+            })
+    );
 });
 
 // Route to the page we can add students from using newstudent.jade
@@ -48,14 +44,12 @@ router.get('/newstudent', function(req, res){
 
 router.post('/addstudent', urlencodedParser,function(req, res,db){
 
-        // Get the documents collection
-            var collection = db.collection('students');
-            // Get the student data passed from the form
+
             var student1 = {student:req.body.student, street: req.body.street,
                 city: req.body.city, state: req.body.state, sex: req.body.sex,
                 gpa: req.body.gpa};
             // Insert the student data into the database
-            collection.insert([student1], function (err, result){
+                mongoUtils.insert('students',[student1], function (err, result){
                 if (err) {
                     console.log(err);
                 } else {
@@ -65,7 +59,6 @@ router.post('/addstudent', urlencodedParser,function(req, res,db){
                 }
 
                 // Close the database
-                db.close();
             });
 });
 router.delete

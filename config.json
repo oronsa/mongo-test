@@ -1,6 +1,6 @@
 {
   "mongoDBUrl" : "mongodb://localhost:27017/AccSh3",
   "collections": {
-    "users": "users"
+    "students": "students"
   }
 }
